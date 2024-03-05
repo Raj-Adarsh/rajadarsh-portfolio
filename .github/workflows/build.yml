@@ -43,19 +43,17 @@ jobs:
 
   deploy-build:
     needs: build
-
     runs-on: ubuntu-latest
-
     steps:
-      - name: Clone the repoitory
+      - name: Checkout the repository
         uses: actions/checkout@v2
         with:
-          ref: master-deploy
+          ref: gh-pages  # Change this to gh-pages
 
       - name: Configure git
         run: |
-          git config --global user.email ${GITHUB_ACTOR}@gmail.com
-          git config --global user.name ${GITHUB_ACTOR}
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
 
       - name: Download website build
         uses: actions/download-artifact@v1
@@ -65,8 +63,6 @@ jobs:
 
       - name: Commit and Push
         run: |
-          if [ $(git status --porcelain=v1 2>/dev/null | wc -l) != "0" ] ; then
-            git add -f .
-            git commit -m "gh-actions deployed a new build"
-            git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:master-deploy
-          fi
+          git add -f .
+          git commit -m "Deploy a new build"
+          git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages  # Change this to gh-pages
