@@ -63,6 +63,13 @@ jobs:
 
       - name: Commit and Push
         run: |
-          git add -f .
-          git commit -m "Deploy a new build"
-          git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages  # Change this to gh-pages
+          # Check for changes. If none, skip deployment.
+          if [ $(git status --porcelain=v1 2>/dev/null | wc -l) != "0" ] ; then
+            # Safely remove old files, excluding the .git directory and other essentials.
+            find . -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} \;
+            # Copy the new build into the current directory.
+            cp -r build/web/* .
+            git add -f .
+            git commit -m "gh-actions deployed a new build"
+            git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:master-deploy
+          fi
