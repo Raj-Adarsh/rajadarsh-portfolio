@@ -75,18 +75,26 @@ jobs:
           pwd
           ls -la
           ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio
+          pwd
           ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio/build/web/*
       - name: Commit and Push
-        env:
-          WORKSPACE_PATH: /home/runner/work/flutter_dev_folio/flutter_dev_folio
         run: |
-          # Check for changes. If none, skip deployment.
           if [ $(git status --porcelain=v1 2>/dev/null | wc -l) != "0" ] ; then
-            # Safely remove old files, excluding the .git directory and other essentials.
-            find . -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} \;
-            # Copy the new build into the current directory.
-            cp -r ${{ env.WORKSPACE_PATH }}/build/web/* .
+            # Navigate to the build/web directory
+            cd "${WORKSPACE_PATH}/build/web"
+            # Safely remove old files, excluding the .git directory and other essentials, from the target directory.
+            # Ensure you're in the correct directory before doing this to avoid unintended deletions.
+            find "${WORKSPACE_PATH}" -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' ! -name 'build' -exec rm -rf {} \;
+            # Now copy the new build into the GitHub Actions working directory.
+            # Since we're already in build/web, we can copy everything from here to the desired location.
+            cp -r * "${WORKSPACE_PATH}/"
+            # Navigate back to the workspace root
+            cd "${WORKSPACE_PATH}"
+            pwd
+            ls -la
             git add -f .
             git commit -m "gh-actions deployed a new build"
             git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages
           fi
+        env:
+          WORKSPACE_PATH: /home/runner/work/flutter_dev_folio/flutter_dev_folio
