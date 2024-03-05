@@ -79,15 +79,16 @@ jobs:
           ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio/build/web/*
       - name: Commit and Push
         run: |
-          if [ $(git status --porcelain=v1 2>/dev/null | wc -l) != "0" ] ; then
+          # if [ $(git status --porcelain=v1 2>/dev/null | wc -l) != "0" ] ; then
             # Navigate to the build/web directory
-            cd "${WORKSPACE_PATH}/build/web"
-            # Safely remove old files, excluding the .git directory and other essentials, from the target directory.
-            # Ensure you're in the correct directory before doing this to avoid unintended deletions.
-            find "${WORKSPACE_PATH}" -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' ! -name 'build' -exec rm -rf {} \;
-            # Now copy the new build into the GitHub Actions working directory.
-            # Since we're already in build/web, we can copy everything from here to the desired location.
-            cp -r * "${WORKSPACE_PATH}/"
+            WORKSPACE_PATH="/home/runner/work/flutter_dev_folio/flutter_dev_folio"
+            cd "${WORKSPACE_PATH}"
+            # Checkout or create the gh-pages branch
+            git checkout gh-pages || git checkout -b gh-pages
+            # Clean existing files
+            git rm -rf .
+            # Copy build output to root of repository
+            cp -r build/web/* .
             # Navigate back to the workspace root
             cd "${WORKSPACE_PATH}"
             pwd
@@ -96,5 +97,3 @@ jobs:
             git commit -m "gh-actions deployed a new build"
             git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages
           fi
-        env:
-          WORKSPACE_PATH: /home/runner/work/flutter_dev_folio/flutter_dev_folio
