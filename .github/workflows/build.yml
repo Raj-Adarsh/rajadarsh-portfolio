@@ -161,6 +161,10 @@ jobs:
           # Copy build output to the root of the gh-pages branch
           cp -r ${WORKSPACE_PATH}/build/web/* .
 
+          echo "After copying build/web"
+          ls -la
+          pwd
+
           # Commit and push changes
           git add -A
           git commit -m "Deploy updated website" || echo "No changes to commit"
