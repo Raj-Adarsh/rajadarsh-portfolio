@@ -148,16 +148,18 @@ jobs:
           # Checkout or create the gh-pages branch
           git checkout gh-pages || git checkout -b gh-pages
           
-          # Remove existing files except for .git and the build directory.
-          # Note: It's crucial not to delete the .git directory and build directory
-          find . -path ./.git -prune -o -path ./build -prune -o -exec rm -rf {} \+ 
+          # Use 'shopt -s extglob' to enable extended globbing for better control over file selection.
+          shopt -s extglob
+          
+          # Remove everything except the .git directory and the build directory
+          # The 'extglob' option allows us to do this in a more controlled manner.
+          rm -rf !(build|.|..|.git)
+
+          ls -la
+          pwd
 
           # Copy build output to the root of the gh-pages branch
           cp -r ${WORKSPACE_PATH}/build/web/* .
-
-          # Configure git
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
 
           # Commit and push changes
           git add -A
