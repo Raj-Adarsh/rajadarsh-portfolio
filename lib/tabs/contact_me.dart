@@ -80,7 +80,7 @@ class _ContactMeState extends State<ContactMe> {
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: CustomText(
                         text:
-                            'DISCUSS A PROJECT OR JUST WANT TO SAY HI? MY INBOX IS OPEN FOR ALL.',
+                            'DISCUSS A PROJECT OR AN OPPURTUNITY? MY INBOX IS OPEN FOR ALL.',
                         fontSize: 18,
                         color: Theme.of(context)
                             .primaryColorLight
@@ -117,7 +117,7 @@ class _ContactMeState extends State<ContactMe> {
                     ),
                     child: data[1] != ''
                         ? CustomText(
-                            text: 'Open for opportunities: ${data[1]}',
+                            text: 'Actively looking for Summer 24 Internship/Co-op opportunities.',
                             fontSize: 18,
                             color: Theme.of(context).primaryColorLight)
                         : const Center(),
@@ -152,7 +152,7 @@ class _ContactMeState extends State<ContactMe> {
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: CustomText(
                                 text:
-                                    'DISCUSS A PROJECT OR JUST WANT TO SAY HI? MY INBOX IS OPEN FOR ALL.',
+                                    'DISCUSS A PROJECT OR AN OPPURTUNITY? MY INBOX IS OPEN FOR ALL.',
                                 fontSize: 18,
                                 color: Theme.of(context)
                                     .primaryColorLight
@@ -181,7 +181,7 @@ class _ContactMeState extends State<ContactMe> {
                           ),
                           if (data[1] != '')
                             CustomText(
-                                text: 'Open for opportunities: ${data[1]}',
+                                text: 'Actively looking for Summer 24 Internship/Co-op opportunities.',
                                 fontSize: 18,
                                 color: Theme.of(context).primaryColorLight)
                           else
@@ -224,9 +224,9 @@ class _ContactMeState extends State<ContactMe> {
               ),
               TextButton(
                 onPressed: () => htmlOpenLink(
-                    'https://github.com/danger-ahead/flutter_dev_folio'),
+                    'https://github.com/Raj-Adarsh'),
                 child: CustomText(
-                    text: 'Theme by flutter_dev_folio',
+                    text: 'Theme by raazadarsh',
                     fontSize: 10,
                     color: Theme.of(context).primaryColorLight),
               )

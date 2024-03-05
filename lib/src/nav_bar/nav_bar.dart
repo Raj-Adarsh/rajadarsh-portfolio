@@ -28,7 +28,7 @@ class NavBar extends StatelessWidget {
               context: context,
               tabNumber: 1,
               btnNumber: ' 01. ',
-              btnName: 'What I Do'),
+              btnName: 'Skills'),
           UnderlinedButton(
               context: context,
               tabNumber: 2,
