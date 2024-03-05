@@ -1,3 +1,103 @@
+# name: Build and Deploy
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Check if dotenv exists
+#         run: |
+#           if [[ -f dotenv ]]; then
+#             echo "Already present, ignoring."
+#           else
+#             : > dotenv
+#           fi
+
+#       - name: Set up Flutter
+#         uses: subosito/flutter-action@v1
+#         with:
+#           channel: 'stable'
+
+#       - name: Get dependencies
+#         run: flutter pub get
+
+#       - name: Run analyze
+#         run: flutter analyze .
+
+#       - name: Build release
+#         run: flutter build web --web-renderer html --release
+
+#       - name: Upload artifacts
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: build
+#           path: build
+#       - name: Debug current working directory packer build
+#         run: |
+#           pwd
+#           ls -la
+
+#   deploy-build:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout the repository
+#         uses: actions/checkout@v4
+#         with:
+#           ref: gh-pages  # Change this to gh-pages
+
+#       - name: Debug current working directory of build
+#         run: |
+#           pwd
+#           ls -la
+
+      # - name: Configure git
+      #   run: |
+      #     git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      #     git config --global user.name "${GITHUB_ACTOR}"
+
+#       - name: Download website build
+#         uses: actions/download-artifact@v4
+#         with:
+#           name: build
+#           path: build
+
+#       - name: Debug current working directory and list content
+#         run: |
+#           pwd
+#           ls -la
+#           ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio
+#           pwd
+#           ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio/build/web/*
+#       - name: Commit and Push
+#         run: |
+#           # if [ $(git status --porcelain=v1 2>/dev/null | wc -l) != "0" ] ; then
+#             # Navigate to the build/web directory
+#             WORKSPACE_PATH="/home/runner/work/flutter_dev_folio/flutter_dev_folio"
+#             cd "${WORKSPACE_PATH}"
+#             # Checkout or create the gh-pages branch
+#             git checkout gh-pages || git checkout -b gh-pages
+#             # Clean existing files
+#             git rm -rf .
+#             # Copy build output to root of repository
+#             cp -r build/web/* .
+#             # Navigate back to the workspace root
+#             cd "${WORKSPACE_PATH}"
+#             pwd
+#             ls -la
+#             git add -f .
+#             git commit -m "gh-actions deployed a new build"
+#             git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages
+#           # fi
+
 name: Build and Deploy
 
 on:
@@ -35,65 +135,31 @@ jobs:
       - name: Build release
         run: flutter build web --web-renderer html --release
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build
-          path: build
-      - name: Debug current working directory packer build
-        run: |
-          pwd
-          ls -la
-
-  deploy-build:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages  # Change this to gh-pages
-
-      - name: Debug current working directory of build
-        run: |
-          pwd
-          ls -la
-
       - name: Configure git
         run: |
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config --global user.name "${GITHUB_ACTOR}"
 
-      - name: Download website build
-        uses: actions/download-artifact@v4
-        with:
-          name: build
-          path: build
+      - name: Deploy to gh-pages
+        run: |
+          # Define the workspace path
+          WORKSPACE_PATH="/home/runner/work/flutter_dev_folio/flutter_dev_folio"
+          
+          # Checkout or create the gh-pages branch
+          git checkout gh-pages || git checkout -b gh-pages
+          
+          # Remove existing files except for .git and the build directory.
+          # Note: It's crucial not to delete the .git directory and build directory
+          find . -path ./.git -prune -o -path ./build -prune -o -exec rm -rf {} \+ 
 
-      - name: Debug current working directory and list content
-        run: |
-          pwd
-          ls -la
-          ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio
-          pwd
-          ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio/build/web/*
-      - name: Commit and Push
-        run: |
-          # if [ $(git status --porcelain=v1 2>/dev/null | wc -l) != "0" ] ; then
-            # Navigate to the build/web directory
-            WORKSPACE_PATH="/home/runner/work/flutter_dev_folio/flutter_dev_folio"
-            cd "${WORKSPACE_PATH}"
-            # Checkout or create the gh-pages branch
-            git checkout gh-pages || git checkout -b gh-pages
-            # Clean existing files
-            git rm -rf .
-            # Copy build output to root of repository
-            cp -r build/web/* .
-            # Navigate back to the workspace root
-            cd "${WORKSPACE_PATH}"
-            pwd
-            ls -la
-            git add -f .
-            git commit -m "gh-actions deployed a new build"
-            git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages
-          fi
+          # Copy build output to the root of the gh-pages branch
+          cp -r ${WORKSPACE_PATH}/build/web/* .
+
+          # Configure git
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          # Commit and push changes
+          git add -A
+          git commit -m "Deploy updated website" || echo "No changes to commit"
+          git push --force https://github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages
