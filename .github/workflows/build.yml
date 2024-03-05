@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Check if dotenv exists
         run: |
@@ -36,19 +36,28 @@ jobs:
         run: flutter build web --web-renderer html --release
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: build
+      - name: Debug current working directory packer build
+        run: |
+          pwd
+          ls -la
 
   deploy-build:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: gh-pages  # Change this to gh-pages
+
+      - name: Debug current working directory of build
+        run: |
+          pwd
+          ls -la
 
       - name: Configure git
         run: |
@@ -56,11 +65,17 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}"
 
       - name: Download website build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build
 
+      - name: Debug current working directory and list content
+        run: |
+          pwd
+          ls -la
+          ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio
+          ls -alrt /home/runner/work/flutter_dev_folio/flutter_dev_folio/build/web/*
       - name: Commit and Push
         env:
           WORKSPACE_PATH: /home/runner/work/flutter_dev_folio/flutter_dev_folio
