@@ -133,7 +133,7 @@ jobs:
         run: flutter analyze .
 
       - name: Build release
-        run: flutter build web --web-renderer html --release
+        run: flutter build web --base-href /portfolio/
 
       - name: Configure git
         run: |
