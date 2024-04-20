@@ -5,7 +5,9 @@
     ],
     "designation": [
         "Software Engineer",
-        "DevOps Engineer"
+        "DevOps Engineer",
+        "Site Reliability Engineer",
+        "Cloud Engineer"
     ],
     "resume_download_link": "https://drive.google.com/file/d/1QYCYUZyBlKnauYo_ZZBZL1Lky6d7Lkmt/view?usp=sharing",
     "social_media": {
@@ -95,41 +97,53 @@
     "projects": {
         "1": {
             "name": "Cloud Native Application for Peak Performance",
-            "tech_stack_used": "Go, PostgresQL, Cloud(AWS, GCP), Docker, Kubernetes, Terraform, Packer",
-            "description": "Containerized a python microservice and deployed to Kubernetes using CI/CD pipeline and enabled the service for autoscaling to handle traffic spikes using Kubernetes horizontal pod autoscaling. Added monitors to the service to detect high resource utilization, latency and errors. Currently, the repository is Private :(",
-            "general_or_github_link": "https://github.com/Raj-Adarsh/webapp.git"
+            "tech_stack_used": "Go, PostgresQL, Cloud(AWS, GCP), Docker, Kubernetes, Terraform, Packer, Github Actions",
+            "description": "A Golang web application to authenticate users through Email and store users with PostgresQL deployed on Google Cloud Provider(GCP) using Github Actions",
+            "general_or_github_link": "https://github.com/Raj-Adarsh/webapp"
         },
         "2": {
+            "name": "Golang JSON Query Engine",
+            "tech_stack_used": "Go, AWS(DynamoDB), RESTful APIs, ElasticSearch, ElasticMQ, AWS SQS, RabbitMQ, OAuth 2.0",
+            "description": "A Go web application which stores a complex json document in a key-value store and supports CRUD operations. The web app also supports complex queries and searching capabilities using Elastic Search and Kibana.",
+            "general_or_github_link": "https://github.com/Raj-Adarsh/Go-JSON-Query-Engine"
+        },
+        "3": {
+            "name": "Google Cloud IaC Terraform",
+            "tech_stack_used": "Terraform",
+            "description": "A repository to provision infrastructure for GCP services through Terraform. The IaC will provision the following Google Cloud Services - VPC, Compute Engine, Cloud SQL, Cloud Function, DNS, Load balancer, AutoScaler, SSL, Logging, CMEK. The Github repo has workflow ensure Continuous Integration.",
+            "general_or_github_link": "https://github.com/Raj-Adarsh/tf-gcp-infra"
+        },
+        "4": {
+            "name": "Google Cloud Function - serverless",
+            "tech_stack_used": "Google Cloud Services, SendGrid",
+            "description": "A serverless function for Google Cloud Function to send out email verification links for authentication of registered users.",
+            "general_or_github_link": "https://github.com/Raj-Adarsh/serverless"
+        },
+        "5": {
             "name": "A Keyless Approach to Home Security using Internet of Things",
             "tech_stack_used": "Python, ML, Raspberry Pi, Linux",
             "description": "Engineered a highly cost-efficient intelligent home security system leveraging Raspberry Pi technology. Developed a data-driven door unlocking system, leveraging facial recognition technology and a mobile application, enhancing security measures and improving accessibility for authorized personnel.",
             "general_or_github_link": "https://www.ijraset.com/fileserve.php?FID=26473"
         },
-        "3": {
+        "6": {
             "name": "Spotify Clone",
             "tech_stack_used": "Java, Spring, RESTful APIs",
-            "description": "Java application which returns the albums of the specified artists.",
+            "description": "Clone of Spotify Application, implemented functionality to returns the albums of the specified artists.",
             "general_or_github_link": "https://github.com/Raj-Adarsh/Spotify-java.git"
         },
-        "4": {
+        "7": {
             "name": "Go application for Health-Check DB",
             "tech_stack_used": "Go, ORM(Gin), PostgresQL",
             "description": "Golang web application to implement health check for Postgres Database Connection",
             "general_or_github_link": "https://github.com/Raj-Adarsh/Go-Health-Check-DB.git"
         },
-        "5": {
-            "name": "CRUD on DynamoDB",
-            "tech_stack_used": "Go, AWS(DynamoDB), RESTful APIs",
-            "description": "A web application to execute CRUD on Dynamo through REST APIs",
-            "general_or_github_link": "https://github.com/Raj-Adarsh/CRUD-with-DynamoDB-GO.git"
-        },
-        "6": {
+        "8": {
             "name": "Stock Management System",
             "tech_stack_used": "Java, MySQL, HTML, CSS, JavaScript",
             "description": "A java application to replicate a stock trading platform",
             "general_or_github_link": "https://github.com/Raj-Adarsh/Stock-Management-System.git"
         },
-        "7": {
+        "9": {
             "name": "Hash Table in C",
             "tech_stack_used": "C Programming",
             "description": "Code to build a hash table in C",
