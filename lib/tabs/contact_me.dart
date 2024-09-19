@@ -117,7 +117,7 @@ class _ContactMeState extends State<ContactMe> {
                     ),
                     child: data[1] != ''
                         ? CustomText(
-                            text: 'Actively looking for Summer 24 Internship/Co-op opportunities.',
+                            text: "Actively looking for New Grad '25 full-time roles",
                             fontSize: 18,
                             color: Theme.of(context).primaryColorLight)
                         : const Center(),
@@ -181,7 +181,7 @@ class _ContactMeState extends State<ContactMe> {
                           ),
                           if (data[1] != '')
                             CustomText(
-                                text: 'Actively looking for Summer 24 Internship/Co-op opportunities.',
+                                text: "Actively looking for New Grad '25 full-time roles",
                                 fontSize: 18,
                                 color: Theme.of(context).primaryColorLight)
                           else
