@@ -63662,7 +63662,7 @@ A.a32.prototype={
 $0(){this.a.f=this.b},
 $S:0}
 A.a2Z.prototype={
-$2(a,b){var s,r,q,p,o,n,m=this,l="Reach Out to me!",k=null,j="DISCUSS A PROJECT OR AN OPPURTUNITY? MY INBOX IS OPEN FOR ALL.",i="assets/contact_me/constant/location-dark.png",h="assets/contact_me/constant/location.png",g="Actively looking for Summer 24 Internship/Co-op opportunities.",f=t.p
+$2(a,b){var s,r,q,p,o,n,m=this,l="Reach Out to me!",k=null,j="DISCUSS A PROJECT OR AN OPPURTUNITY? MY INBOX IS OPEN FOR ALL.",i="assets/contact_me/constant/location-dark.png",h="assets/contact_me/constant/location.png",g="Actively looking for New Grad '25 full-time roles",f=t.p
 if(b.b<1000){s=A.a0(a)
 r=A.a9T(A.aa3().ax,7)
 r=A.db(k,m.b.$1(2.7),B.n,k,k,new A.cq(k,k,r,k,k,k,B.dm),k,k,k,k,k,k,k)
